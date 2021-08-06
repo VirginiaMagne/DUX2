@@ -26,13 +26,13 @@
         Para comenzar a jugar, presioná "Comenzar"</p> 
     </div>
     <div class="row justify-content-md-center">
-        <button (click)="setStartGame()" class="btn btn-success" style="background-color: brown; border-color: brown;">Comenzar</button>
+        <button (click)="setStartGame()" class="btn btn-success" style="background-color: brown; border-color: brown; margin:auto;">Comenzar</button>
     </div>
 </div>
 
 
 
-<div  *ngIf="startGame" [ngStyle]="{'font-size': fontSize +'px'}">
+<div  *ngIf="startGame" [ngStyle]="{'font-size': fontSize +'px'}" >
     <button style="background-color: white; border: white;" (click)="goBack()"><i class="bi bi-arrow-left-circle-fill" style="font-size: 2em; color: brown;"></i></button>
     <div class="container">
         <div class="row justify-content-md-center"> 
@@ -46,7 +46,10 @@
                 <button [ngStyle]="{'font-size': subTitleFontSize +'px'}" style="background-color: white; border: none;">¿A qué cesto corresponde?</button>
         </div>
         <div  class="row justify-content-md-center">
-            <p [ngStyle]="{'font-size': counterFontSize +'px'}" >Elementos restantes: {{cant}}/{{length}}</p> 
+            <p [ngStyle]="{'font-size': counterFontSize +'px'}" >Elementos restantes: {{cant}}/{{length}}</p>  
+        </div>
+        <div  class="row justify-content-md-center">
+            <i class="bi bi-clock"></i> <p> Tiempo transcurrido: {{timeLeft}}</p> 
         </div>
     </div> 
 
@@ -54,7 +57,7 @@
         <div class="row" style="font-size: 20px;">
             <div class="col-sm">
                 <div class="row justify-content-md-center">
-                <button style="background-color: white; border: white;" (click) = "trashClick(0, content)"> <i class="bi bi-trash-fill" style="font-size: 8em; color: #e68a00;"></i>
+                <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(0, content)"> <i class="bi bi-trash-fill" style="font-size: 8em; color: #e68a00;"></i>
                     <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Orgánicos</p>
                 </button>
             </div>
@@ -62,33 +65,34 @@
             </div>
             <div class="col-sm">
                 <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white;" (click) = "trashClick(1, content)">  <i class="bi bi-trash-fill" style="font-size: 8em; color: #cccc00;"></i>
+                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(1, content)">  <i class="bi bi-trash-fill" style="font-size: 8em; color: #cccc00;"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Latas y Plásticos</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
                 <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white;" (click) = "trashClick(2, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: green;"></i>
+                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(2, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: green;"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Vidrio</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
                 <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white;" (click) = "trashClick(3, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: blue;"></i>
+                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(3, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: blue;"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Papel y Cartón</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
                 <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white;" (click) = "trashClick(4, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: purple;"></i>
+                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(4, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: purple;"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Baterías y Aerosoles</p>
                     </button>
                 </div>
             </div>
         </div>
+
     </div> 
 
     <div *ngIf="buttonOtraVezVisible" class="row justify-content-md-center">
@@ -108,6 +112,7 @@
             </div>
             <div *ngIf="gameFinished" class="modal-body">
                 <p>¡Felicitaciones, guardaste todos los elementos en el cesto correspondiente!</p>
+                <p>Tiempo transcurrido {{timeLeft}} segundos.</p>
             </div>
             <div *ngIf="gameFinished" class="row justify-content-md-center">
                 <i class="bi bi-trophy-fill"style="font-size: 3em; color: yellow"></i>
@@ -139,3 +144,14 @@
         </div>
       </ng-template>
 </div>
+
+
+
+
+
+
+
+
+
+
+

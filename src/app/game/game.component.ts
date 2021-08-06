@@ -4,6 +4,7 @@ import { NgbModal, NgbModalConfig, ModalDismissReasons } from '@ng-bootstrap/ng-
 import { Alert } from 'src/app/model/alert';
 import { Category } from 'src/app/model/category';
 import { GarbageObject } from '../model/garbage-object';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -39,6 +40,11 @@ export class GameComponent implements OnInit, OnChanges {
   buttonOtraVezVisible = false;
   startGame = false;
   gameFinished = false;
+
+  timeLeft: number = 0.0;
+  interval: any;
+  subscribeTimer: any;
+  gameFinishedTime: number = 0;
 
   garbageObjects: GarbageObject[] = [];
   categories: Category[] = [];
@@ -180,12 +186,39 @@ export class GameComponent implements OnInit, OnChanges {
 
     this.length = this.garbageObjects.length;
     this.setRandomElement();
+    
   
+  }
+
+
+
+  oberserableTimer() {
+    const source = timer(1000, 2000);
+    const abc = source.subscribe(val => {
+      console.log(val, '-');
+      this.subscribeTimer = this.timeLeft - val;
+    });
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft < 999) {
+        this.timeLeft++;
+      } else {
+        //this.timeLeft = 0;
+        this.pauseTimer();
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
   }
 
   //Habilito la vista del juego cuando presionan Comenzar, y escondo el botón
   setStartGame(){
     this.startGame = true;
+    this.startTimer();
   }
 
   goBack(){
@@ -213,6 +246,10 @@ export class GameComponent implements OnInit, OnChanges {
   playAgain(){
     this.cant = 0;
     this.gameFinished = false;
+    
+    //Guardo tiempo y reinicio el timer
+    this.gameFinishedTime = this.timeLeft;
+    this.timeLeft = 0;
     this.setRandomElement();
   }
 
@@ -248,6 +285,7 @@ export class GameComponent implements OnInit, OnChanges {
       this.cant++;
       this.buttonOtraVezVisible = true;
       this.gameFinished = true;
+      this.pauseTimer();
     }
   }
 
