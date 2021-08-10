@@ -36,7 +36,7 @@
     <button style="background-color: white; border: white;" (click)="goBack()"><i class="bi bi-arrow-left-circle-fill" style="font-size: 2em; color: brown;"></i></button>
     <div class="container">
         <div class="row justify-content-md-center"> 
-            <img [src]="randomElement.imgPath" alt="{{randomElement.name}}" style="width: 200px; height: 200px;"><br>       
+            <img [src]="randomElement.imgPath" alt="{{randomElement.name}}" style="width: 200px; height: 200px; margin: auto;"><br>       
         </div>
         <div class="row justify-content-md-center">
             <!-- <h3 [ngStyle]="{'font-size': titleFontSize +'px'}">{{randomElement.name}}</h3> -->
@@ -46,10 +46,12 @@
                 <button [ngStyle]="{'font-size': subTitleFontSize +'px'}" style="background-color: white; border: none;">¿A qué cesto corresponde?</button>
         </div>
         <div  class="row justify-content-md-center">
-            <p [ngStyle]="{'font-size': counterFontSize +'px'}" >Elementos restantes: {{cant}}/{{length}}</p>  
+            <p [ngStyle]="{'font-size': counterFontSize +'px'}" style="margin: auto;">Elementos restantes: {{cant}}/{{length}}</p>  
         </div>
-        <div  class="row justify-content-md-center">
-            <i class="bi bi-clock"></i> <p> Tiempo transcurrido: {{timeLeft}}</p> 
+        <div  class="row justify-content-md-center" >
+            <div style="margin: auto;">
+                <i class="bi bi-clock"></i> Tiempo transcurrido: {{timeLeft}}
+            </div>
         </div>
     </div> 
 
@@ -108,17 +110,21 @@
                 <p>{{randomElement.name}} pertenece a {{randomElement.category.name}}</p>
             </div>
             <div *ngIf="!gameFinished" class="row justify-content-md-center">
-                <i class="bi bi-emoji-smile" style="font-size: 3em; color: green"></i>
+                <i class="bi bi-emoji-smile" style="font-size: 3em; color: green; margin: auto;"></i>
             </div>
             <div *ngIf="gameFinished" class="modal-body">
                 <p>¡Felicitaciones, guardaste todos los elementos en el cesto correspondiente!</p>
                 <p>Tiempo transcurrido {{timeLeft}} segundos.</p>
+                
+                <input id="hero-name" [(ngModel)]="playerName" placeholder="name">
+
+             
+                 
             </div>
             <div *ngIf="gameFinished" class="row justify-content-md-center">
                 <i class="bi bi-trophy-fill"style="font-size: 3em; color: yellow"></i>
             </div>
-
-            
+       
             <div class="modal-footer">
                 <button *ngIf="!gameFinished" type="button" class="btn " (click)="setRandomElement();" style="color: brown;
                 border-color: brown;">Siguiente</button>
@@ -134,7 +140,7 @@
                 <p>{{randomElement.name}} no pertenece a {{selectedItemCategory.name}}</p>
             </div>
             <div class="row justify-content-md-center">
-                <i class="bi bi-emoji-frown" style="font-size: 3em; color: red"></i>
+                <i class="bi bi-emoji-frown" style="font-size: 3em; color: red; margin: auto;"></i>
             </div>
 
             <div class="modal-footer">
@@ -143,6 +149,16 @@
             </div> 
         </div>
       </ng-template>
+
+        <ul *ngIf="positionTableVisible">
+          <div class="row justify-content-md-center" style="margin: auto;">
+            <i class="bi bi-trophy-fill"style="font-size: 2em; color: yellow"></i> <br>
+            Posiciones
+          </div>  
+            <li *ngFor="let res of results; let i = index" class="list-group-item list-group-item-dark">
+                <span class="badge">{{i+1}} º puesto. </span> Jugador: {{res.name}}, Tiempo: {{res.time}} segundos.
+            </li>
+        </ul>
 </div>
 
 

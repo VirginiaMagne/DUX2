@@ -3,6 +3,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbModalConfig, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from 'src/app/model/alert';
 import { Category } from 'src/app/model/category';
+import { Result } from 'src/app/model/result';
 import { GarbageObject } from '../model/garbage-object';
 import { timer } from 'rxjs';
 
@@ -15,6 +16,7 @@ import { timer } from 'rxjs';
 export class GameComponent implements OnInit, OnChanges {
 
   @Input() fontSize! : '';
+  @Input()  playerName? : string;
 
   faTrash = faTrash;
   orangeTrash = 'assets/trash-img/orange-trash.PNG';
@@ -40,6 +42,7 @@ export class GameComponent implements OnInit, OnChanges {
   buttonOtraVezVisible = false;
   startGame = false;
   gameFinished = false;
+  positionTableVisible = false;
 
   timeLeft: number = 0.0;
   interval: any;
@@ -48,6 +51,9 @@ export class GameComponent implements OnInit, OnChanges {
 
   garbageObjects: GarbageObject[] = [];
   categories: Category[] = [];
+
+  results: Result[] = [];
+ 
 
   closeResult = '';
 
@@ -71,7 +77,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void{
-    console.log(changes)
+    
 
   }
   ngOnInit(): void {
@@ -234,8 +240,8 @@ export class GameComponent implements OnInit, OnChanges {
 
   //Seteo un elemento random para jugar 
   setRandomElement(){
+    
     this.randomElement = this.garbageObjects[Math.floor(Math.random() * this.garbageObjects.length)];
-    console.log(this.randomElement);
     this.showDanger = false;
     this.showSuccess = false;
     this.buttonOtraVezVisible = false;
@@ -244,12 +250,27 @@ export class GameComponent implements OnInit, OnChanges {
 
   //Limpio el estado del juego para empezarlo de cero.
   playAgain(){
+    console.log(this.results)
+
+    console.log(this.playerName)    
+    let res:  Result = {
+      name: this.playerName,
+      time: this.timeLeft
+    };
+
+    
+   
+    this.results.push(res);
+    this.results.sort((a, b) => a.time - b.time);
+
+    this.positionTableVisible = true;
     this.cant = 0;
     this.gameFinished = false;
     
     //Guardo tiempo y reinicio el timer
     this.gameFinishedTime = this.timeLeft;
     this.timeLeft = 0;
+    this.startTimer();
     this.setRandomElement();
   }
 
@@ -263,8 +284,7 @@ export class GameComponent implements OnInit, OnChanges {
    * 4 = Baterías y Aerosoles
    */
   trashClick(selectedId: Number, content: any){
-    console.log(this.garbageObjects)
-    console.log(selectedId)
+    
     this.selectedItemCategory = this.categories.find( ({ id }) => id === selectedId )!;
     if(this.cant < this.length -1){
       if(selectedId == this.randomElement.category.id ){
@@ -309,6 +329,10 @@ export class GameComponent implements OnInit, OnChanges {
     this.subTitleFontSize -= 20;
     this.counterFontSize -= 20;
   }
+
+
+  onSubmit(){console.log("asd")}
+
 }
 
 
