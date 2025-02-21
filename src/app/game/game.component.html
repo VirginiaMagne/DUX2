@@ -1,173 +1,183 @@
 <app-header (newEventEmitter)="recieveEvent($event)"></app-header>
 
 <div *ngIf="!startGame" class="container" style="margin-top: 40px;">
-    <div class="row justify-content-md-center">
-        <p [ngStyle]="{'font-size': titleFontSize +'px'}" style="color: brown;">Clasificá los residuos y salvá al planeta</p> 
+    <div class="row justify-content-center text-center">
+        <p [ngStyle]="{'font-size': titleFontSize +'px'}" style="color: brown;">Clasificá los residuos y salvá al
+            planeta</p>
     </div>
 
-    <div class="row justify-content-md-center">
-        <p [ngStyle]="{'font-size': counterFontSize +'px'}" style="color: green;"> <i class="bi bi-lightbulb"></i> En Argentina se genera 1 tonelada (1.000 kg) de basura cada 2 segundos. 
-            <br/><br/>
-            Dentro de los residuos cotidianos encontramos, papel y plásticos que pueden ser reciclados y reutilizados disminuyendo así el consumo de recursos naturales y la contaminación. 
-            <br/><br/>
-            También encontramos pilas y baterías que al arrojarlas a la basura común no son tratadas adecuadamente lo que producirá una gran contaminación de tierras y aguas. 
-            <br/><br/>
-            Clasificar la basura hace que cada tipo de residuo sea tratado como corresponde disminuyendo así la contaminación del medio ambiente y el consumo de recursos naturales. 
-            <br/><br/>
-            Solo tenemos una Tierra y todos debemos cuidarla.</p> 
+    <div class="row justify-content-center py-5">
+        <p [ngStyle]="{'font-size': counterFontSize +'px'}" style="color: green;"> <i class="bi bi-lightbulb"></i> En
+            Argentina se genera 1 tonelada (1.000 kg) de basura cada 2 segundos.
+            <br /><br />
+            Dentro de los residuos cotidianos encontramos, papel y plásticos que pueden ser reciclados y reutilizados
+            disminuyendo así el consumo de recursos naturales y la contaminación.
+            <br /><br />
+            También encontramos pilas y baterías que al arrojarlas a la basura común no son tratadas adecuadamente lo
+            que producirá una gran contaminación de tierras y aguas.
+            <br /><br />
+            Clasificar la basura hace que cada tipo de residuo sea tratado como corresponde disminuyendo así la
+            contaminación del medio ambiente y el consumo de recursos naturales.
+            <br /><br />
+            Solo tenemos una Tierra y todos debemos cuidarla.
+        </p>
     </div>
 
-   
-    <div class="row justify-content-md-center">
-        <p [ngStyle]="{'font-size': subTitleFontSize +'px'}" style="color: dimgray;"> <i class="bi bi-question-circle"></i> Cómo jugar </p> 
+
+    <div class="row justify-content-center text-center">
+        <p [ngStyle]="{'font-size': subTitleFontSize +'px'}" style="color: dimgray;"> <i
+                class="bi bi-question-circle"></i> Cómo jugar </p>
     </div>
-    <div class="row justify-content-md-center">
-      <p [ngStyle]="{'font-size': counterFontSize +'px'}">Seleccione el cesto en el que se debe arrojar el residuo que aparece en pantalla.<br/>
-        Para comenzar a jugar, presione "Comenzar"</p> 
+    <div class="row justify-content-center text-center">
+        <p [ngStyle]="{'font-size': counterFontSize +'px'}">Seleccione el cesto en el que se debe arrojar el residuo que
+            aparece en pantalla.<br />
+            Para comenzar a jugar, presione "Comenzar"</p>
     </div>
-    <div class="row justify-content-md-center">
-        <button (click)="setStartGame()" class="btn btn-success" style="background-color: brown; border-color: brown; margin:auto;">Comenzar</button>
+    <div class="text-center">
+        <button (click)="setStartGame()" class="btn btn-success btn-lg"
+            style="background-color: brown; border-color: brown;">Comenzar</button>
     </div>
 </div>
 
 
 
-<div  *ngIf="startGame" [ngStyle]="{'font-size': fontSize +'px'}" >
-    <button style="background-color: white; border: white;" (click)="goBack()"><i class="bi bi-arrow-left-circle-fill" style="font-size: 2em; color: brown;"></i></button>
+<div *ngIf="startGame" [ngStyle]="{'font-size': fontSize +'px'}">
+    <button style="background-color: white; border: white;" (click)="goBack()"><i class="bi bi-arrow-left-circle-fill"
+            style="font-size: 2em; color: brown;"></i></button>
     <div class="container">
-        <div class="row justify-content-md-center"> 
-            <img [src]="randomElement.imgPath" alt="{{randomElement.name}}" style="width: 200px; height: 200px; margin: auto;"><br>       
+        <div class="row justify-content-center">
+            <img [src]="randomElement.imgPath" alt="{{randomElement.name}}"
+                style="width: 200px; height: 200px; margin: auto;"><br>
         </div>
-        <div class="row justify-content-md-center">
-            <!-- <h3 [ngStyle]="{'font-size': titleFontSize +'px'}">{{randomElement.name}}</h3> -->
-            <button [ngStyle]="{'font-size': titleFontSize +'px'}" style="background-color: white; border: none;">{{randomElement.name}}</button>
+        <div class="row justify-content-center">
+            <p class="fs-1 text-center">{{randomElement.name}}</p>
         </div>
-        <div  class="row justify-content-md-center">
-                <button [ngStyle]="{'font-size': subTitleFontSize +'px'}" style="background-color: white; border: none;">¿A qué cesto corresponde?</button>
+        <div class="row justify-content-center">
+            <p class="fs-2 text-center">¿A qué cesto corresponde?</p>
         </div>
-        <div  class="row justify-content-md-center">
-            <p [ngStyle]="{'font-size': counterFontSize +'px'}" style="margin: auto;">Elementos restantes: {{cant}}/{{length}}</p>  
+        <div class="row justify-content-center text-center">
+            <p [ngStyle]="{'font-size': counterFontSize +'px'}" style="margin: auto;">Elementos restantes:
+                {{cant}}/{{length}}</p>
         </div>
-        <div  class="row justify-content-md-center" >
+        <div class="row justify-content-center text-center">
             <div style="margin: auto;">
-                <i class="bi bi-clock"></i> Tiempo transcurrido: {{timeLeft}}
+                <i class="bi bi-clock"></i> Tiempo transcurrido: {{timeLeft}} segundos
             </div>
         </div>
-    </div> 
+    </div>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row" style="font-size: 20px;">
             <div class="col-sm">
-                <div class="row justify-content-md-center">
-                <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(0, content)"> <i class="bi bi-trash-fill" style="font-size: 8em; color: #e68a00;"></i>
-                    <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Orgánicos</p>
-                </button>
-            </div>
-            
+                <div class="row justify-content-center">
+                    <button style="background-color: white; border: white; margin: auto;"
+                        (click)="trashClick(0, content)">
+                        <i class="bi bi-trash-fill" style="font-size: 8em; color: #e68a00; line-height: 0;"
+                            title="Cesto naranja"></i>
+                        <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Orgánicos</p>
+                    </button>
+                </div>
+
             </div>
             <div class="col-sm">
-                <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(1, content)">  <i class="bi bi-trash-fill" style="font-size: 8em; color: #cccc00;"></i>
+                <div class="row justify-content-center">
+                    <button style="background-color: white; border: white; margin: auto;"
+                        (click)="trashClick(1, content)"> <i class="bi bi-trash-fill"
+                            style="font-size: 8em; color: #cccc00; line-height: 0;" title="Cesto amarillo"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Latas y Plásticos</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
-                <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(2, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: green;"></i>
+                <div class="row justify-content-center">
+                    <button style="background-color: white; border: white; margin: auto;"
+                        (click)="trashClick(2, content)"> <i class="bi bi-trash-fill"
+                            style="font-size: 8em; color: green; line-height: 0;" title="Cesto verde"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Vidrio</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
-                <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(3, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: blue;"></i>
+                <div class="row justify-content-center">
+                    <button style="background-color: white; border: white; margin: auto;"
+                        (click)="trashClick(3, content)"> <i class="bi bi-trash-fill"
+                            style="font-size: 8em; color: blue; line-height: 0;" title="Cesto azul"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Papel y Cartón</p>
                     </button>
                 </div>
             </div>
             <div class="col-sm">
-                <div class="row justify-content-md-center">
-                    <button style="background-color: white; border: white; margin: auto;" (click) = "trashClick(4, content)">   <i class="bi bi-trash-fill" style="font-size: 8em; color: purple;"></i>
+                <div class="row justify-content-center">
+                    <button style="background-color: white; border: white; margin: auto;"
+                        (click)="trashClick(4, content)"> <i class="bi bi-trash-fill"
+                            style="font-size: 8em; color: purple; line-height: 0;" title="Cesto violeta"></i>
                         <p [ngStyle]="{'font-size': subTitleFontSize +'px'}">Baterías y Aerosoles</p>
                     </button>
                 </div>
             </div>
         </div>
 
-    </div> 
+    </div>
 
-    <div *ngIf="buttonOtraVezVisible" class="row justify-content-md-center">
+    <div *ngIf="buttonOtraVezVisible" class="row justify-content-center">
         <button type="button" class="btn btn-success" (click)="playAgain()">Jugar otra vez</button>
     </div>
 
     <ng-template #content let-c="close" let-d="dismiss">
-        <div  *ngIf="showSuccess">
+        <div *ngIf="showSuccess">
             <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title" style="color: brown;"> <i class="bi bi-check-circle-fill" style="color:green;"></i> ¡Muy Bien!</h4>
+                <h4 class="modal-title" id="modal-basic-title" style="color: brown;"> <i class="bi bi-check-circle-fill"
+                        style="color:green;"></i> ¡Muy Bien!</h4>
             </div>
             <div class="modal-body">
                 <p>{{randomElement.name}} pertenece a {{randomElement.category.name}}</p>
             </div>
-            <div *ngIf="!gameFinished" class="row justify-content-md-center">
-                <i class="bi bi-emoji-smile" style="font-size: 3em; color: green; margin: auto;"></i>
+            <div *ngIf="!gameFinished" class="row justify-content-center text-center">
+                <i class="bi bi-emoji-smile" style="font-size: 3em; color: green;"></i>
             </div>
             <div *ngIf="gameFinished" class="modal-body">
                 <p>¡Felicitaciones, guardaste todos los elementos en el cesto correspondiente!</p>
                 <p>Tiempo transcurrido {{timeLeft}} segundos.</p>
-                
-                <input id="hero-name" [(ngModel)]="playerName" placeholder="Nombre">
 
-             
-                 
+                <input id="hero-name" [(ngModel)]="playerName" placeholder="Nombre">
             </div>
-            <div *ngIf="gameFinished" class="row justify-content-md-center">
-                <i class="bi bi-trophy-fill"style="font-size: 3em; color: yellow"></i>
+            <div *ngIf="gameFinished" class="row justify-content-center">
+                <i class="bi bi-trophy-fill" style="font-size: 3em; color: yellow"></i>
             </div>
-       
+
             <div class="modal-footer">
                 <button *ngIf="!gameFinished" type="button" class="btn " (click)="setRandomElement();" style="color: brown;
                 border-color: brown;">Siguiente</button>
                 <button *ngIf="gameFinished" type="button" class="btn " (click)="playAgain();" style="color: brown;
                 border-color: brown;">Jugar nuevamente</button>
-            </div> 
+            </div>
         </div>
         <div *ngIf="showDanger">
-            <div  class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title" style="color: brown;"><i class="bi bi-x-circle-fill" style="color:red;"></i> Ups</h4>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title" style="color: brown;"><i class="bi bi-x-circle-fill"
+                        style="color:red;"></i> Ups</h4>
             </div>
             <div class="modal-body">
                 <p>{{randomElement.name}} no pertenece a {{selectedItemCategory.name}}</p>
             </div>
-            <div class="row justify-content-md-center">
-                <i class="bi bi-emoji-frown" style="font-size: 3em; color: red; margin: auto;"></i>
+            <div class="row justify-content-center text-center">
+                <i class="bi bi-emoji-frown" style="font-size: 3em; color: red;"></i>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn " (click)="c('Save click')" style="color: brown;
                 border-color: brown;">Reintentar</button>
-            </div> 
+            </div>
         </div>
-      </ng-template>
+    </ng-template>
 
-        <ul *ngIf="positionTableVisible">
-          <div class="row justify-content-md-center" style="margin: auto;">
-            <i class="bi bi-trophy-fill"style="font-size: 2em; color: yellow"></i> <br>
+    <ul *ngIf="positionTableVisible">
+        <div class="row justify-content-center" style="margin: auto;">
+            <i class="bi bi-trophy-fill" style="font-size: 2em; color: yellow"></i> <br>
             Posiciones
-          </div>  
-            <li *ngFor="let res of results; let i = index" class="list-group-item list-group-item-dark">
-                <span class="badge">{{i+1}} º puesto. </span> Jugador: {{res.name}}, Tiempo: {{res.time}} segundos.
-            </li>
-        </ul>
+        </div>
+        <li *ngFor="let res of results; let i = index" class="list-group-item list-group-item-dark">
+            <span class="badge">{{i+1}} º puesto. </span> Jugador: {{res.name}}, Tiempo: {{res.time}} segundos.
+        </li>
+    </ul>
 </div>
-
-
-
-
-
-
-
-
-
-
-

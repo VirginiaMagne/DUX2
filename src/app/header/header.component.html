@@ -1,22 +1,26 @@
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
   <a class="navbar-brand" style="color: brown; font-size: 30px;" href="#"> <b>ReciclAr</b> </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav ml-auto nav-flex-icons" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div class="navbar-nav ms-auto nav-flex-icons" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto flex-row gap-3">
       <li class="nav-item active">
-        <a class="nav-link" style="color: brown; font-size: 30px;" href="#" (click)="getFontSize()"> Aa<span class="sr-only">(current)</span></a>
+        <a class="nav-link" style="color: brown; font-size: 30px;" href="#" title="Cambiar tamaño de fuente"
+          (click)="getFontSize()"> Aa</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: brown; font-size: 30px;" href="#"><i class="bi bi-arrow-clockwise"></i></a>
+        <a class="nav-link" style="color: brown; font-size: 30px;" href="#" title="
+        Reiniciar juego"><i class="bi bi-arrow-clockwise"></i></a>
       </li>
       <li class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
-        <a class="nav-link" style="color: brown; font-size: 30px;" href="#" id="dropdownBasic1" role="button" ngbDropdownToggle><i class="bi bi-question-circle"></i></a>
-        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-            <p style="color: brown;">Seleccione el cesto en el cual se deba arrojar el residuo que se muestra en la imagen.</p>
+        <a class="nav-link" style="color: brown; font-size: 30px;" href="#" id="dropdownBasic1" role="button"
+          ngbDropdownToggle title="Ayuda"><i class="bi bi-question-circle"></i></a>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu" style="width:250px">
+          <p class="px-4 py-2 pb-0" style="color: brown">Seleccione el cesto en el cual se deba arrojar el residuo que
+            se
+            muestra
+            en la
+            imagen.</p>
         </div>
       </li>
     </ul>
-</div>
+  </div>
 </nav>

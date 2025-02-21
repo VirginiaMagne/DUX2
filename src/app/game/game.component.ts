@@ -1,22 +1,26 @@
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ɵCodegenComponentFactoryResolver } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { NgbModal, NgbModalConfig, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from 'src/app/model/alert';
 import { Category } from 'src/app/model/category';
 import { Result } from 'src/app/model/result';
 import { GarbageObject } from '../model/garbage-object';
 import { timer } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  imports: [CommonModule, FormsModule, HeaderComponent]
 })
 export class GameComponent implements OnInit, OnChanges {
 
-  @Input() fontSize! : '';
-  @Input()  playerName? : string;
+  @Input() fontSize!: '';
+  @Input() playerName?: string;
 
   faTrash = faTrash;
   orangeTrash = 'assets/trash-img/orange-trash.PNG';
@@ -26,7 +30,7 @@ export class GameComponent implements OnInit, OnChanges {
   purpleTrash = 'assets/trash-img/purple-trash.PNG';
   apple = 'assets/img/apple.png';
 
-  randomElement = new GarbageObject(); 
+  randomElement = new GarbageObject();
   length = 0;
   cant = 0;
   fontSizeFlag = false;
@@ -35,7 +39,7 @@ export class GameComponent implements OnInit, OnChanges {
   counterFontSize: number = 20;
 
   selectedItemCategory = new Category();
-  
+
 
   showDanger = false;
   showSuccess = false;
@@ -53,11 +57,11 @@ export class GameComponent implements OnInit, OnChanges {
   categories: Category[] = [];
 
   results: Result[] = [];
- 
+
 
   closeResult = '';
 
-   alerts: Alert[] = [
+  alerts: Alert[] = [
     {
       type: 'success',
       message: 'Correcto!',
@@ -76,8 +80,8 @@ export class GameComponent implements OnInit, OnChanges {
     config.keyboard = false;
   }
 
-  ngOnChanges(changes: SimpleChanges): void{
-    
+  ngOnChanges(changes: SimpleChanges): void {
+
 
   }
   ngOnInit(): void {
@@ -192,8 +196,8 @@ export class GameComponent implements OnInit, OnChanges {
 
     this.length = this.garbageObjects.length;
     this.setRandomElement();
-    
-  
+
+
   }
 
 
@@ -208,13 +212,13 @@ export class GameComponent implements OnInit, OnChanges {
 
   startTimer() {
     this.interval = setInterval(() => {
-      if(this.timeLeft < 999) {
+      if (this.timeLeft < 999) {
         this.timeLeft++;
       } else {
         //this.timeLeft = 0;
         this.pauseTimer();
       }
-    },1000)
+    }, 1000)
   }
 
   pauseTimer() {
@@ -222,12 +226,12 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   //Habilito la vista del juego cuando presionan Comenzar, y escondo el botón
-  setStartGame(){
+  setStartGame() {
     this.startGame = true;
     this.startTimer();
   }
 
-  goBack(){
+  goBack() {
     this.startGame = false;
   }
 
@@ -236,11 +240,11 @@ export class GameComponent implements OnInit, OnChanges {
     this.modalService.open(content);
   }
 
- 
+
 
   //Seteo un elemento random para jugar 
-  setRandomElement(){
-    
+  setRandomElement() {
+
     this.randomElement = this.garbageObjects[Math.floor(Math.random() * this.garbageObjects.length)];
     this.showDanger = false;
     this.showSuccess = false;
@@ -249,24 +253,24 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   //Limpio el estado del juego para empezarlo de cero.
-  playAgain(){
+  playAgain() {
     console.log(this.results)
 
-    console.log(this.playerName)    
-    let res:  Result = {
+    console.log(this.playerName)
+    let res: Result = {
       name: this.playerName,
       time: this.timeLeft
     };
 
-    
-   
+
+
     this.results.push(res);
     this.results.sort((a, b) => a.time - b.time);
 
     this.positionTableVisible = true;
     this.cant = 0;
     this.gameFinished = false;
-    
+
     //Guardo tiempo y reinicio el timer
     this.gameFinishedTime = this.timeLeft;
     this.timeLeft = 0;
@@ -283,22 +287,22 @@ export class GameComponent implements OnInit, OnChanges {
    * 3 = Papel y Cartón
    * 4 = Baterías y Aerosoles
    */
-  trashClick(selectedId: Number, content: any){
-    
-    this.selectedItemCategory = this.categories.find( ({ id }) => id === selectedId )!;
-    if(this.cant < this.length -1){
-      if(selectedId == this.randomElement.category.id ){
+  trashClick(selectedId: Number, content: any) {
+
+    this.selectedItemCategory = this.categories.find(({ id }) => id === selectedId)!;
+    if (this.cant < this.length - 1) {
+      if (selectedId == this.randomElement.category.id) {
         this.showSuccess = true;
         this.showDanger = false;
         this.modalService.open(content);
         //this.buttonOtraVezVisible = true;
         this.cant++;
-      }else{
+      } else {
         this.showDanger = true;
         this.showSuccess = false;
         this.modalService.open(content);
       }
-    }else if((this.cant == this.length -1) && (selectedId == this.randomElement.category.id)){
+    } else if ((this.cant == this.length - 1) && (selectedId == this.randomElement.category.id)) {
       this.showSuccess = true;
       this.showDanger = false;
       this.modalService.open(content);
@@ -313,25 +317,25 @@ export class GameComponent implements OnInit, OnChanges {
     this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 
-  recieveEvent(size: number ){
+  recieveEvent(size: any) {
     this.fontSizeFlag = !this.fontSizeFlag;
     this.fontSizeFlag ? this.increaseFontSize() : this.decreaseFontSize();
   }
 
-  increaseFontSize(){
+  increaseFontSize() {
     this.titleFontSize += 20;
     this.subTitleFontSize += 20;
     this.counterFontSize += 20;
   }
 
-  decreaseFontSize(){
+  decreaseFontSize() {
     this.titleFontSize -= 20;
     this.subTitleFontSize -= 20;
     this.counterFontSize -= 20;
   }
 
 
-  onSubmit(){console.log("asd")}
+  onSubmit() { console.log("asd") }
 
 }
 
