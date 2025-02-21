@@ -16,6 +16,7 @@
             "outputPath": "dist/dux",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/DUX2/",
             "polyfills": [
               "zone.js",
               "@angular/localize/init"
