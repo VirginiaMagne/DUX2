@@ -43,7 +43,6 @@ export class GameComponent implements OnInit, OnChanges {
 
   showDanger = false;
   showSuccess = false;
-  buttonOtraVezVisible = false;
   startGame = false;
   gameFinished = false;
   positionTableVisible = false;
@@ -195,12 +194,8 @@ export class GameComponent implements OnInit, OnChanges {
     this.garbageObjects.push(pila);
 
     this.length = this.garbageObjects.length;
-    this.setRandomElement();
-
-
+    this.setElement();
   }
-
-
 
   oberserableTimer() {
     const source = timer(1000, 2000);
@@ -228,10 +223,15 @@ export class GameComponent implements OnInit, OnChanges {
   //Habilito la vista del juego cuando presionan Comenzar, y escondo el botón
   setStartGame() {
     this.startGame = true;
+    this.cant = 0;
+    this.setElement();
     this.startTimer();
   }
 
   goBack() {
+    this.pauseTimer();
+    this.modalService.dismissAll();
+    this.timeLeft = 0;
     this.startGame = false;
   }
 
@@ -242,40 +242,37 @@ export class GameComponent implements OnInit, OnChanges {
 
 
 
-  //Seteo un elemento random para jugar 
-  setRandomElement() {
+  //Seteo un elemento para jugar 
+  setElement() {
 
-    this.randomElement = this.garbageObjects[Math.floor(Math.random() * this.garbageObjects.length)];
+    this.randomElement = this.garbageObjects[this.cant];
     this.showDanger = false;
     this.showSuccess = false;
-    this.buttonOtraVezVisible = false;
     this.modalService.dismissAll();
   }
 
   //Limpio el estado del juego para empezarlo de cero.
   playAgain() {
-    console.log(this.results)
-
-    console.log(this.playerName)
     let res: Result = {
       name: this.playerName,
-      time: this.timeLeft
+      time: this.gameFinishedTime
     };
-
-
-
     this.results.push(res);
     this.results.sort((a, b) => a.time - b.time);
 
     this.positionTableVisible = true;
-    this.cant = 0;
+    // this.cant = 0;
     this.gameFinished = false;
 
-    //Guardo tiempo y reinicio el timer
-    this.gameFinishedTime = this.timeLeft;
-    this.timeLeft = 0;
-    this.startTimer();
-    this.setRandomElement();
+    //this.gameFinishedTime = this.timeLeft;
+    //this.timeLeft = 0;
+    // this.startTimer();
+    //this.setElement();
+    this.goBack();
+
+    // this.pauseTimer();
+    // this.timeLeft = 0;
+    // this.startGame = false;
   }
 
 
@@ -295,7 +292,6 @@ export class GameComponent implements OnInit, OnChanges {
         this.showSuccess = true;
         this.showDanger = false;
         this.modalService.open(content);
-        //this.buttonOtraVezVisible = true;
         this.cant++;
       } else {
         this.showDanger = true;
@@ -307,7 +303,7 @@ export class GameComponent implements OnInit, OnChanges {
       this.showDanger = false;
       this.modalService.open(content);
       this.cant++;
-      this.buttonOtraVezVisible = true;
+      this.gameFinishedTime = this.timeLeft;
       this.gameFinished = true;
       this.pauseTimer();
     }
