@@ -37,6 +37,7 @@ export class GameComponent implements OnInit, OnChanges {
   titleFontSize: number = 50;
   subTitleFontSize: number = 30;
   counterFontSize: number = 20;
+  simpleTextFontSize: number = 16;
 
   selectedItemCategory = new Category();
 
@@ -128,40 +129,24 @@ export class GameComponent implements OnInit, OnChanges {
     };
     this.garbageObjects.push(banana);
 
-    let botellaPlastico: GarbageObject = {
-      id: 2,
-      name: 'Botella de Plástico',
-      category: latasYPlasticos,
-      imgPath: 'assets/img/botella-plastico.png'
-    };
-    this.garbageObjects.push(botellaPlastico);
-
     let botellaVidrioRota: GarbageObject = {
-      id: 3,
+      id: 2,
       name: 'Botella de Vidrio rota',
       category: vidrio,
       imgPath: 'assets/img/botella-vidrio-rota.png'
     };
     this.garbageObjects.push(botellaVidrioRota);
 
-    let botellaVidrio: GarbageObject = {
-      id: 4,
-      name: 'Botella de Vidrio',
-      category: vidrio,
-      imgPath: 'assets/img/botella-coca-cola.png'
+    let botellaPlastico: GarbageObject = {
+      id: 3,
+      name: 'Botella de Plástico',
+      category: latasYPlasticos,
+      imgPath: 'assets/img/botella-plastico.png'
     };
-    this.garbageObjects.push(botellaVidrio);
-
-    let carton: GarbageObject = {
-      id: 5,
-      name: 'Cartón',
-      category: papelYCarton,
-      imgPath: 'assets/img/caja-carton.png'
-    };
-    this.garbageObjects.push(carton);
+    this.garbageObjects.push(botellaPlastico);
 
     let diario: GarbageObject = {
-      id: 6,
+      id: 4,
       name: 'Diario',
       category: papelYCarton,
       imgPath: 'assets/img/diario.png'
@@ -169,12 +154,28 @@ export class GameComponent implements OnInit, OnChanges {
     this.garbageObjects.push(diario);
 
     let hojasSecas: GarbageObject = {
-      id: 7,
+      id: 5,
       name: 'Hojas secas',
       category: organicos,
       imgPath: 'assets/img/hojas.png'
     };
     this.garbageObjects.push(hojasSecas);
+
+    let botellaVidrio: GarbageObject = {
+      id: 6,
+      name: 'Botella de Vidrio',
+      category: vidrio,
+      imgPath: 'assets/img/botella-coca-cola.png'
+    };
+    this.garbageObjects.push(botellaVidrio);
+
+    let carton: GarbageObject = {
+      id: 7,
+      name: 'Cartón',
+      category: papelYCarton,
+      imgPath: 'assets/img/caja-carton.png'
+    };
+    this.garbageObjects.push(carton);
 
     let lata: GarbageObject = {
       id: 8,
@@ -182,7 +183,6 @@ export class GameComponent implements OnInit, OnChanges {
       category: latasYPlasticos,
       imgPath: 'assets/img/lata2.png'
     };
-
     this.garbageObjects.push(lata);
 
     let pila: GarbageObject = {
@@ -197,10 +197,10 @@ export class GameComponent implements OnInit, OnChanges {
     this.setElement();
   }
 
+  // Configuracion del timer
   oberserableTimer() {
     const source = timer(1000, 2000);
     const abc = source.subscribe(val => {
-      console.log(val, '-');
       this.subscribeTimer = this.timeLeft - val;
     });
   }
@@ -210,7 +210,6 @@ export class GameComponent implements OnInit, OnChanges {
       if (this.timeLeft < 999) {
         this.timeLeft++;
       } else {
-        //this.timeLeft = 0;
         this.pauseTimer();
       }
     }, 1000)
@@ -228,6 +227,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.startTimer();
   }
 
+  // Volver a la pantalla inicial
   goBack() {
     this.pauseTimer();
     this.modalService.dismissAll();
@@ -239,8 +239,6 @@ export class GameComponent implements OnInit, OnChanges {
   open(content: any) {
     this.modalService.open(content);
   }
-
-
 
   //Seteo un elemento para jugar 
   setElement() {
@@ -261,29 +259,12 @@ export class GameComponent implements OnInit, OnChanges {
     this.results.sort((a, b) => a.time - b.time);
 
     this.positionTableVisible = true;
-    // this.cant = 0;
     this.gameFinished = false;
-
-    //this.gameFinishedTime = this.timeLeft;
-    //this.timeLeft = 0;
-    // this.startTimer();
-    //this.setElement();
     this.goBack();
-
-    // this.pauseTimer();
-    // this.timeLeft = 0;
-    // this.startGame = false;
   }
 
 
-  /**
-   * @param id 
-   * 0 = Orgánico
-   * 1 = Latas y Plásticos
-   * 2 = Vidrio
-   * 3 = Papel y Cartón
-   * 4 = Baterías y Aerosoles
-   */
+  // Evaluacion de si la respuesta es correcta
   trashClick(selectedId: Number, content: any) {
 
     this.selectedItemCategory = this.categories.find(({ id }) => id === selectedId)!;
@@ -313,6 +294,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 
+  // Cambio del tamaño de la fuente
   recieveEvent(size: any) {
     this.fontSizeFlag = !this.fontSizeFlag;
     this.fontSizeFlag ? this.increaseFontSize() : this.decreaseFontSize();
@@ -322,16 +304,18 @@ export class GameComponent implements OnInit, OnChanges {
     this.titleFontSize += 20;
     this.subTitleFontSize += 20;
     this.counterFontSize += 20;
+    this.simpleTextFontSize += 20;
   }
 
   decreaseFontSize() {
     this.titleFontSize -= 20;
     this.subTitleFontSize -= 20;
     this.counterFontSize -= 20;
+    this.simpleTextFontSize -= 20;
   }
 
 
-  onSubmit() { console.log("asd") }
+  onSubmit() { }
 
 }
 

@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // Cambio del tamaño de la fuente
   getFontSize() {
     this.bigFontSize = !this.bigFontSize;
     this.helpFontSize = this.bigFontSize ? 36 : 16;

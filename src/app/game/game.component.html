@@ -126,13 +126,13 @@
                 <h4 class="modal-title" id="modal-basic-title" style="color: brown;"> <i class="bi bi-check-circle-fill"
                         style="color:green;"></i> ¡Muy Bien!</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" [ngStyle]="{'font-size': simpleTextFontSize +'px'}">
                 <p>{{randomElement.name}} pertenece a {{randomElement.category.name}}</p>
             </div>
             <div *ngIf="!gameFinished" class="row justify-content-center text-center">
                 <i class="bi bi-emoji-smile" style="font-size: 3em; color: green;"></i>
             </div>
-            <div *ngIf="gameFinished" class="modal-body">
+            <div *ngIf="gameFinished" class="modal-body" [ngStyle]="{'font-size': simpleTextFontSize +'px'}">
                 <div style="display: flex; justify-content: center;">
                     <i class="bi bi-trophy-fill" style="font-size: 3em; color: #C78100"></i>
                 </div>
@@ -154,7 +154,7 @@
                 <h4 class="modal-title" id="modal-basic-title" style="color: brown;"><i class="bi bi-x-circle-fill"
                         style="color:red;"></i> Ups</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" [ngStyle]="{'font-size': simpleTextFontSize +'px'}">
                 <p>{{randomElement.name}} no pertenece a {{selectedItemCategory.name}}</p>
             </div>
             <div class="row justify-content-center text-center">
@@ -173,7 +173,9 @@
             <i class="bi bi-trophy-fill" style="font-size: 2em; color: #C78100; font-style: normal;"> Posiciones</i>
         </span>
         <li *ngFor="let res of results; let i = index" class="list-group-item list-group-item-dark">
-            <span class="badge">{{i+1}} º puesto. </span> Jugador: {{res.name}}, Tiempo: {{res.time}} segundos.
+            <span class="badge" [ngStyle]="{'font-size': simpleTextFontSize +'px'}">{{i+1}} º puesto. </span>
+            <span [ngStyle]="{'font-size': simpleTextFontSize +'px'}">Jugador: {{res.name}}, Tiempo: {{res.time}}
+                segundos.</span>
         </li>
     </ul>
 </div>
