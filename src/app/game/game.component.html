@@ -42,8 +42,8 @@
 
 
 <div *ngIf="startGame" [ngStyle]="{'font-size': fontSize +'px'}">
-    <button style="background-color: white; border: white;" (click)="goBack()"><i class="bi bi-arrow-left-circle-fill"
-            style="font-size: 2em; color: brown;"></i></button>
+    <button style="background-color: white; border: white;" (click)="goBack()" title="Reinicar juego"><i
+            class="bi bi-arrow-left-circle-fill" style="font-size: 2em; color: brown;"></i></button>
     <div class="container">
         <div class="row justify-content-center">
             <img [src]="randomElement.imgPath" alt="{{randomElement.name}}"
